@@ -213,29 +213,51 @@ button{font-family:var(--font-b);cursor:pointer}
 .btn-danger:active{opacity:.85}
 .del-msg{font-size:.88rem;color:var(--ink-soft);line-height:1.5}
 
-/* D&D CAT CARD */
-.cat-card-modal{background:var(--bg-card);border-radius:var(--r-xl) var(--r-xl) 0 0;width:100%;max-width:480px;box-shadow:var(--shadow-modal);padding:0 0 calc(24px + env(safe-area-inset-bottom));animation:slideUp .28s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
-.cc-banner{padding:24px 20px 20px;display:flex;gap:16px;align-items:center}
-.cc-banner.kevin-banner{background:linear-gradient(135deg,#1a1a2e,#2e2e50)}
-.cc-banner.archie-banner{background:linear-gradient(135deg,#3d2200,#6b3d00)}
-.cc-portrait{width:72px;height:72px;border-radius:50%;border:3px solid rgba(255,255,255,.25);object-fit:cover;flex-shrink:0}
-.cc-portrait-emoji{width:72px;height:72px;border-radius:50%;border:3px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:2.4rem;flex-shrink:0}
-.cc-header-text{}
-.cc-name{font-family:var(--font-d);font-size:1.6rem;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.1}
-.cc-class{font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
-.cc-meta{font-size:.75rem;color:rgba(255,255,255,.5);margin-top:4px}
-.cc-body{padding:16px 20px 0}
-.cc-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-.cc-stat{background:var(--bg-soft);border:1.5px solid var(--border-soft);border-radius:var(--r-sm);padding:10px 6px;text-align:center}
-.cc-stat-val{font-family:var(--font-d);font-size:1.4rem;font-weight:700;color:var(--ink);line-height:1}
-.cc-stat-lbl{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-top:2px}
-.cc-abilities{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.cc-ability{background:var(--bg-soft);border-radius:var(--r-sm);padding:10px 12px;border-left:3px solid var(--archie-accent)}
-.cc-ability.kevin-ability{border-color:var(--kevin-accent)}
-.cc-ability-name{font-size:.75rem;font-weight:700;color:var(--ink);margin-bottom:2px}
-.cc-ability-desc{font-size:.74rem;color:var(--ink-soft);line-height:1.4;font-style:italic}
-.cc-alignment{font-size:.8rem;color:var(--ink-soft);text-align:center;padding:8px;background:var(--border-soft);border-radius:var(--r-sm);font-weight:600}
-.cc-close-btn{margin:16px 20px 0;width:calc(100% - 40px);padding:14px;background:var(--ink);color:var(--bg);font-size:.95rem;font-weight:700;border:none;border-radius:var(--r-md);letter-spacing:.02em}
+/* MTG CAT CARD */
+.cat-card-modal{background:transparent;border-radius:var(--r-xl) var(--r-xl) 0 0;width:100%;max-width:480px;box-shadow:none;padding:20px 20px calc(28px + env(safe-area-inset-bottom));animation:slideUp .28s cubic-bezier(.34,1.56,.64,1);overflow-y:auto;max-height:92dvh}
+/* Outer metallic frame */
+.mtg-outer{border-radius:16px;padding:5px;box-shadow:0 0 28px rgba(0,0,0,.7),0 0 8px rgba(212,168,48,.35);position:relative}
+.mtg-outer.kevin-outer{background:linear-gradient(145deg,#8ca8bc 0%,#3a5468 20%,#b8d0e0 45%,#3a5468 70%,#8ca8bc 100%);box-shadow:0 0 32px rgba(0,0,0,.8),0 0 12px rgba(123,158,184,.4)}
+.mtg-outer.archie-outer{background:linear-gradient(145deg,#d4a830 0%,#7a5510 20%,#f5d060 45%,#7a5510 70%,#d4a830 100%)}
+/* Inner card body */
+.mtg-card{border-radius:12px;overflow:hidden;background:#1a1208;position:relative}
+.mtg-card.kevin-card{background:#0c0c18}
+.mtg-card.archie-card{background:#1a0c00}
+/* Name bar */
+.mtg-namebar{display:flex;align-items:center;justify-content:space-between;padding:7px 10px 6px;background:rgba(0,0,0,.55)}
+.mtg-namebar.kevin-nb{background:linear-gradient(90deg,#1a2535,#0f1520)}
+.mtg-namebar.archie-nb{background:linear-gradient(90deg,#2a1500,#1a0c00)}
+.mtg-name{font-family:var(--font-d);font-size:1rem;font-weight:700;color:#f0e0c0;letter-spacing:.02em;line-height:1}
+.mtg-cost{display:flex;gap:4px;align-items:center}
+.mtg-pip{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;border:1.5px solid rgba(255,255,255,.3);flex-shrink:0}
+.pip-black{background:radial-gradient(circle at 35% 35%,#4a4a6a,#0a0a18);color:#9ab8d0}
+.pip-white{background:radial-gradient(circle at 35% 35%,#f8f0d8,#d4c090);color:#3a2800}
+.pip-green{background:radial-gradient(circle at 35% 35%,#3a7a3a,#1a4018);color:#a8e8a0}
+/* Art box */
+.mtg-art{width:100%;display:block;position:relative;overflow:hidden}
+.mtg-art svg{display:block;width:100%;height:auto}
+/* Photo overlay if user set a photo */
+.mtg-art-photo{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+/* Type line */
+.mtg-typeline{padding:5px 10px;display:flex;align-items:center;justify-content:space-between}
+.mtg-typeline.kevin-tl{background:linear-gradient(90deg,#1a2535,#0f1520)}
+.mtg-typeline.archie-tl{background:linear-gradient(90deg,#2a1500,#1a0c00)}
+.mtg-type{font-size:.7rem;font-weight:700;color:#c8a870;letter-spacing:.06em;font-style:italic}
+.mtg-rarity{font-size:.65rem;color:#a08050;font-weight:600}
+/* Text box */
+.mtg-textbox{background:linear-gradient(180deg,#f5ead8 0%,#ede0c4 100%);padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.mtg-ability{font-size:.75rem;color:#1a1008;line-height:1.45}
+.mtg-ability b{font-weight:800}
+.mtg-divider{height:1px;background:rgba(80,50,10,.2);margin:2px 0}
+.mtg-flavor{font-size:.72rem;color:#3a2808;line-height:1.45;font-style:italic;border-top:1px solid rgba(80,50,10,.2);padding-top:6px;margin-top:2px}
+/* Bottom bar */
+.mtg-bottom{display:flex;align-items:center;justify-content:space-between;padding:5px 10px}
+.mtg-bottom.kevin-btm{background:linear-gradient(90deg,#1a2535,#0f1520)}
+.mtg-bottom.archie-btm{background:linear-gradient(90deg,#2a1500,#1a0c00)}
+.mtg-set{font-size:.6rem;color:#8a7050;letter-spacing:.04em}
+.mtg-pt{font-family:var(--font-d);font-size:.9rem;font-weight:700;color:#f0e0c0;background:rgba(0,0,0,.5);border:1px solid rgba(200,168,100,.4);border-radius:4px;padding:2px 8px;line-height:1.4}
+/* Close btn */
+.cc-close-btn{margin-top:14px;width:100%;padding:14px;background:var(--ink);color:var(--bg);font-size:.95rem;font-weight:700;border:none;border-radius:var(--r-md);letter-spacing:.02em}
 
 /* TOAST */
 .toast{position:fixed;bottom:calc(136px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);z-index:999;background:var(--ink);color:var(--bg);font-size:.86rem;font-weight:600;padding:10px 20px;border-radius:50px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
@@ -645,70 +667,77 @@ function handlePhotoUpload(cat,file){
   reader.readAsDataURL(file);
 }
 
-/* D&D CAT CARDS */
+/* MTG CAT CARDS */
 var CAT_DATA={
   Kevin:{
-    class:"Chaotic Gremlin / Lap Parasite",
-    age:"6 years (42 in cat years)",
-    weight:"11 lbs",
-    alignment:"Chaotic Neutral (thinks he's Chaotic Good)",
-    stats:[
-      {val:"6",lbl:"STR"},{val:"14",lbl:"DEX"},{val:"12",lbl:"CON"},
-      {val:"7",lbl:"INT"},{val:"4",lbl:"WIS"},{val:"16",lbl:"CHA"}
-    ],
+    type:"Legendary Creature — Cat Gremlin",
+    rarity:"Mythic Rare · WhiskerCache",
+    pt:"1 / 6",
+    cost:["pip-black","pip-black"],
     abilities:[
-      {name:"Lap Lock (Passive)",desc:"Once seated on a human, cannot be dislodged by any force known to science."},
-      {name:"Archie Aggro",desc:"Passive aura that compels Kevin to bother nearby cats, especially one named Archie."},
-      {name:"Scaredy Sprint",desc:"Flees at any sound above 30dB. Paradoxically, causes loud sounds while fleeing."},
-      {name:"Sweet Disarm",desc:"Melts human hostility with one slow blink. Cooldown: 0 seconds."}
+      {name:"Lap Lock",text:"When Kevin enters the battlefield seated on a human, he cannot be removed by any spell or ability."},
+      {name:"Archie Aggro",text:"At the beginning of your upkeep, Kevin annoys target adjacent cat. That cat gets -1/-0 until end of turn."},
+      {name:"Scaredy Sprint",text:"Whenever a sound with power 1 or greater is made, Kevin gains haste and flees. He deals 0 damage but knocks everything over."},
+      {name:"Sweet Disarm",text:"T: Tap Kevin. All creatures that blocked Kevin this turn become enchanted with 'Must give belly rubs.'"}
     ],
-    flavor:"Mischievous yet soft. Would absolutely knock your drink off the table, then immediately demand cuddles."
+    flavor:"\"He means well,\" they said. He did not mean well. He meant chaos. Sweet, purring chaos.",
+    outerClass:"kevin-outer",cardClass:"kevin-card",nbClass:"kevin-nb",tlClass:"kevin-tl",btmClass:"kevin-btm"
   },
   Archie:{
-    class:"Elder Statesman / Zoomy Grandpa",
-    age:"13 years (68 in cat years)",
-    weight:"13 lbs",
-    alignment:"Lawful Good (prefers a one-cat kingdom)",
-    stats:[
-      {val:"9",lbl:"STR"},{val:"8",lbl:"DEX"},{val:"16",lbl:"CON"},
-      {val:"14",lbl:"INT"},{val:"18",lbl:"WIS"},{val:"20",lbl:"CHA"}
-    ],
+    type:"Legendary Creature — Cat Elder",
+    rarity:"Mythic Rare · WhiskerCache",
+    pt:"4 / 13",
+    cost:["pip-white","pip-green"],
     abilities:[
-      {name:"Demand Feed",desc:"Refuses dry kibble. Requires spoon service. Non-negotiable. This is not a phase."},
-      {name:"Sudden Zoomies",desc:"Random burst of max speed with zero warning. Cannot be predicted. Respects no furniture."},
-      {name:"Solo Act",desc:"−2 to mood whenever Kevin enters the room. +4 when Kevin leaves."},
-      {name:"Ancient Wisdom",desc:"Has seen things. Knows things. Will tell you nothing."}
+      {name:"Spoon Service",text:"Archie can only be fed by spoon. If fed by any other method, he stares at you until you feel bad."},
+      {name:"Sudden Zoomies",text:"At a random time chosen by the opponent, Archie gains +5/+5 and trample until end of turn, then loses it and falls asleep."},
+      {name:"Solo Kingdom",text:"Archie gets +2/+2 while no other cats are on the battlefield. Kevin is always on the battlefield."},
+      {name:"Ancient Wisdom",text:"Archie has seen 13 years of things. He will share none of them. He simply knows."}
     ],
-    flavor:"The sweetest cat who ever lived, forced to share his kingdom with a chaotic younger brother. He endures."
+    flavor:"\"Every kitten knows that with keen senses, stealthy movement, and a killer instinct, the yarn will never see you coming.\"",
+    outerClass:"archie-outer",cardClass:"archie-card",nbClass:"archie-nb",tlClass:"archie-tl",btmClass:"archie-btm"
   }
 };
+
+var KEVIN_SVG='<svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="kbg" x1="0%" y1="0%" x2="30%" y2="100%"><stop offset="0%" stop-color="#12082a"/><stop offset="50%" stop-color="#1e0f3d"/><stop offset="100%" stop-color="#080410"/></linearGradient><radialGradient id="kmoon" cx="78%" cy="14%" r="18%"><stop offset="0%" stop-color="#fff8e8" stop-opacity="0.95"/><stop offset="40%" stop-color="#ffe8a0" stop-opacity="0.3"/><stop offset="100%" stop-color="#1e0f3d" stop-opacity="0"/></radialGradient><radialGradient id="keye" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffdd00"/><stop offset="50%" stop-color="#ff8800"/><stop offset="100%" stop-color="#cc4400" stop-opacity="0"/></radialGradient><filter id="kglow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="ksoft"><feGaussianBlur stdDeviation="1.2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="380" height="260" fill="url(#kbg)"/><ellipse cx="296" cy="36" rx="55" ry="55" fill="url(#kmoon)"/><circle cx="297" cy="37" r="26" fill="#fffce8" opacity="0.92"/><circle cx="307" cy="30" r="9" fill="#e8d898" opacity="0.45"/><line x1="0" y1="200" x2="380" y2="200" stroke="#1a0c30" stroke-width="2"/><rect x="0" y="202" width="380" height="58" fill="#120820"/><rect x="15" y="120" width="16" height="80" rx="2" fill="#2d1205" opacity="0.9"/><rect x="33" y="135" width="12" height="65" rx="2" fill="#101530" opacity="0.9"/><rect x="47" y="125" width="14" height="75" rx="2" fill="#250808" opacity="0.9"/><rect x="308" y="128" width="18" height="72" rx="2" fill="#0f2818" opacity="0.9"/><rect x="328" y="140" width="13" height="60" rx="2" fill="#1e0830" opacity="0.9"/><rect x="343" y="130" width="17" height="70" rx="2" fill="#281405" opacity="0.9"/><ellipse cx="178" cy="178" rx="52" ry="46" fill="#0a0a0a"/><ellipse cx="178" cy="178" rx="44" ry="38" fill="#0f0f14"/><ellipse cx="178" cy="115" rx="40" ry="38" fill="#0c0c12"/><polygon points="147,92 133,54 168,85" fill="#0a0a0a"/><polygon points="209,92 223,54 192,85" fill="#0a0a0a"/><polygon points="150,89 139,62 167,84" fill="#200818"/><polygon points="206,89 217,62 189,84" fill="#200818"/><path d="M228,185 Q275,158 270,215 Q260,238 242,232" fill="#0a0a0a"/><ellipse cx="157" cy="216" rx="20" ry="11" fill="#0d0d12"/><ellipse cx="199" cy="216" rx="20" ry="11" fill="#0d0d12"/><ellipse cx="162" cy="112" rx="14" ry="11" fill="#100800"/><ellipse cx="194" cy="112" rx="14" ry="11" fill="#100800"/><ellipse cx="162" cy="112" rx="11" ry="9" fill="#ff8800" filter="url(#kglow)"/><ellipse cx="194" cy="112" rx="11" ry="9" fill="#ff8800" filter="url(#kglow)"/><ellipse cx="162" cy="112" rx="4.5" ry="9" fill="#040408"/><ellipse cx="194" cy="112" rx="4.5" ry="9" fill="#040408"/><circle cx="165" cy="108" r="2.5" fill="white" opacity="0.85"/><circle cx="197" cy="108" r="2.5" fill="white" opacity="0.85"/><path d="M174,125 L178,131 L182,125 Q178,120 174,125Z" fill="#cc3355"/><path d="M178,131 Q172,137 167,134" fill="none" stroke="#cc3355" stroke-width="1.5" stroke-linecap="round"/><path d="M178,131 Q184,137 189,134" fill="none" stroke="#cc3355" stroke-width="1.5" stroke-linecap="round"/><g opacity="0.65"><line x1="125" y1="120" x2="158" y2="125" stroke="white" stroke-width="1"/><line x1="122" y1="128" x2="156" y2="128" stroke="white" stroke-width="1"/><line x1="125" y1="136" x2="157" y2="131" stroke="white" stroke-width="1"/><line x1="198" y1="125" x2="231" y2="120" stroke="white" stroke-width="1"/><line x1="200" y1="128" x2="234" y2="128" stroke="white" stroke-width="1"/><line x1="199" y1="131" x2="231" y2="136" stroke="white" stroke-width="1"/></g><g filter="url(#kglow)"><text x="88" y="70" font-size="18" fill="#ffee44" opacity="0.9">✦</text><text x="330" y="90" font-size="14" fill="#ffcc00" opacity="0.75">✦</text><text x="65" y="90" font-size="10" fill="#ffaa44" opacity="0.65">✧</text><text x="310" y="65" font-size="10" fill="#ffcc44" opacity="0.6">✧</text></g><text x="8" y="220" font-size="9" fill="#554466" font-family="serif" opacity="0.7">Illustrated by WhiskerCache · Black Magic Edition</text></svg>';
+
+var ARCHIE_SVG='<svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="abg" x1="0%" y1="0%" x2="20%" y2="100%"><stop offset="0%" stop-color="#3d1e00"/><stop offset="50%" stop-color="#5a2d00"/><stop offset="100%" stop-color="#1e0c00"/></linearGradient><radialGradient id="alight" cx="60%" cy="20%" r="40%"><stop offset="0%" stop-color="#ffd080" stop-opacity="0.6"/><stop offset="100%" stop-color="#3d1e00" stop-opacity="0"/></radialGradient><radialGradient id="aeye" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#88ff66"/><stop offset="60%" stop-color="#22aa44"/><stop offset="100%" stop-color="#004422" stop-opacity="0"/></radialGradient><filter id="aglow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="380" height="260" fill="url(#abg)"/><ellipse cx="228" cy="52" rx="100" ry="100" fill="url(#alight)"/><rect x="30" y="185" width="320" height="10" rx="4" fill="#2a1200" opacity="0.9"/><rect x="0" y="195" width="380" height="65" fill="#1a0a00"/><rect x="28" y="110" width="22" height="75" rx="3" fill="#381800" opacity="0.8"/><rect x="52" y="122" width="18" height="63" rx="3" fill="#1a2800" opacity="0.8"/><rect x="72" y="114" width="20" height="71" rx="3" fill="#2a1200" opacity="0.8"/><rect x="288" y="118" width="24" height="67" rx="3" fill="#1c3010" opacity="0.8"/><rect x="314" y="126" width="18" height="59" rx="3" fill="#301800" opacity="0.8"/><ellipse cx="185" cy="173" rx="70" ry="52" fill="#b85500"/><ellipse cx="185" cy="173" rx="62" ry="44" fill="#cc6600"/><ellipse cx="164" cy="164" rx="28" ry="22" fill="#d07010"/><ellipse cx="206" cy="164" rx="28" ry="22" fill="#d07010"/><ellipse cx="185" cy="105" rx="52" ry="48" fill="#c86000"/><ellipse cx="185" cy="105" rx="46" ry="42" fill="#d97010"/><polygon points="150,76 136,40 168,72" fill="#c05800"/><polygon points="220,76 234,40 202,72" fill="#c05800"/><polygon points="153,73 142,50 165,70" fill="#e89060"/><polygon points="217,73 228,50 205,70" fill="#e89060"/><line x1="148" y1="100" x2="222" y2="100" stroke="#a85000" stroke-width="2" opacity="0.5"/><line x1="152" y1="115" x2="218" y2="115" stroke="#a85000" stroke-width="2" opacity="0.4"/><line x1="155" y1="88" x2="215" y2="88" stroke="#a85000" stroke-width="1.5" opacity="0.35"/><ellipse cx="168" cy="103" rx="15" ry="12" fill="#1a0800"/><ellipse cx="202" cy="103" rx="15" ry="12" fill="#1a0800"/><ellipse cx="168" cy="103" rx="12" ry="10" fill="#22aa44" filter="url(#aglow)"/><ellipse cx="202" cy="103" rx="12" ry="10" fill="#22aa44" filter="url(#aglow)"/><ellipse cx="168" cy="103" rx="5" ry="10" fill="#060402"/><ellipse cx="202" cy="103" rx="5" ry="10" fill="#060402"/><circle cx="171" cy="99" r="3" fill="white" opacity="0.9"/><circle cx="205" cy="99" r="3" fill="white" opacity="0.9"/><path d="M180,116 L185,122 L190,116 Q185,111 180,116Z" fill="#e85080"/><path d="M185,122 Q179,129 173,126" fill="none" stroke="#e85080" stroke-width="1.5" stroke-linecap="round"/><path d="M185,122 Q191,129 197,126" fill="none" stroke="#e85080" stroke-width="1.5" stroke-linecap="round"/><g opacity="0.6"><line x1="128" y1="112" x2="162" y2="117" stroke="white" stroke-width="1.2"/><line x1="125" y1="120" x2="160" y2="120" stroke="white" stroke-width="1.2"/><line x1="128" y1="128" x2="161" y2="123" stroke="white" stroke-width="1.2"/><line x1="208" y1="117" x2="242" y2="112" stroke="white" stroke-width="1.2"/><line x1="210" y1="120" x2="245" y2="120" stroke="white" stroke-width="1.2"/><line x1="209" y1="123" x2="242" y2="128" stroke="white" stroke-width="1.2"/></g><ellipse cx="155" cy="195" rx="28" ry="14" fill="#b85500"/><ellipse cx="215" cy="195" rx="28" ry="14" fill="#b85500"/><path d="M255,175 Q295,155 290,205 Q280,228 262,222" fill="#c06000" opacity="0.9"/><g filter="url(#aglow)"><text x="68" y="62" font-size="16" fill="#ffcc44" opacity="0.8">♥</text><text x="296" y="72" font-size="13" fill="#ffcc44" opacity="0.7">♥</text><text x="52" y="80" font-size="11" fill="#ffaa44" opacity="0.6">✦</text></g><text x="8" y="216" font-size="9" fill="#664422" font-family="serif" opacity="0.7">Illustrated by WhiskerCache · Golden Age Edition</text></svg>';
+
 function openCatCard(cat){
   var d=CAT_DATA[cat];if(!d)return;
   var photo=cat==="Kevin"?localStorage.getItem(LS_KP):localStorage.getItem(LS_AP);
-  var portraitHtml=photo
-    ?'<img class="cc-portrait" src="'+photo+'" alt="'+cat+'"/>'
-    :'<div class="cc-portrait-emoji">'+(cat==="Kevin"?"🐈‍⬛":"🐈")+'</div>';
-  var bannerClass=cat==="Kevin"?"kevin-banner":"archie-banner";
+  var pips=d.cost.map(function(c){return'<div class="mtg-pip '+c+'">'+( c==="pip-black"?"B":c==="pip-white"?"W":"G")+'</div>';}).join("");
+  var artHtml=photo
+    ?'<img class="mtg-art-photo" src="'+photo+'" alt="'+cat+'"/>'
+    :'<div class="mtg-art">'+(cat==="Kevin"?KEVIN_SVG:ARCHIE_SVG)+'</div>';
+  var abilitiesHtml=d.abilities.map(function(ab){
+    return'<div class="mtg-ability"><b>'+ab.name+'</b> — '+ab.text+'</div>';
+  }).join('<div class="mtg-divider"></div>');
+
   var html=
-    '<div class="cc-banner '+bannerClass+'">'+
-      portraitHtml+
-      '<div class="cc-header-text">'+
-        '<div class="cc-name">'+cat+'</div>'+
-        '<div class="cc-class">'+d.class+'</div>'+
-        '<div class="cc-meta">'+d.age+' · '+d.weight+'</div>'+
+    '<div class="mtg-outer '+d.outerClass+'">'+
+      '<div class="mtg-card '+d.cardClass+'">'+
+        '<div class="mtg-namebar '+d.nbClass+'">'+
+          '<span class="mtg-name">'+cat+'</span>'+
+          '<div class="mtg-cost">'+pips+'</div>'+
+        '</div>'+
+        artHtml+
+        '<div class="mtg-typeline '+d.tlClass+'">'+
+          '<span class="mtg-type">'+d.type+'</span>'+
+          '<span class="mtg-rarity">✦</span>'+
+        '</div>'+
+        '<div class="mtg-textbox">'+
+          abilitiesHtml+
+          '<div class="mtg-flavor">'+d.flavor+'</div>'+
+        '</div>'+
+        '<div class="mtg-bottom '+d.btmClass+'">'+
+          '<span class="mtg-set">'+d.rarity+'</span>'+
+          '<span class="mtg-pt">'+d.pt+'</span>'+
+        '</div>'+
       '</div>'+
-    '</div>'+
-    '<div class="cc-body">'+
-      '<div class="cc-stats-grid">'+
-        d.stats.map(function(s){return'<div class="cc-stat"><div class="cc-stat-val">'+s.val+'</div><div class="cc-stat-lbl">'+s.lbl+'</div></div>';}).join("")+
-      '</div>'+
-      '<div class="cc-abilities">'+
-        d.abilities.map(function(ab){return'<div class="cc-ability'+(cat==="Kevin"?" kevin-ability":"")+'"><div class="cc-ability-name">'+ab.name+'</div><div class="cc-ability-desc">'+ab.desc+'</div></div>';}).join("")+
-      '</div>'+
-      '<div class="cc-alignment">⚖ '+d.alignment+'</div>'+
-      '<p style="font-size:.78rem;color:var(--ink-faint);font-style:italic;text-align:center;margin-top:10px;line-height:1.4">'+d.flavor+'</p>'+
     '</div>'+
     '<button class="cc-close-btn" id="ccCloseBtn">Close</button>';
+
   document.getElementById("catCardModal").innerHTML=html;
   document.getElementById("catCardBackdrop").classList.add("open");
   document.getElementById("ccCloseBtn").addEventListener("click",closeCatCard);
