@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#fdf6ed" />
+  <title>WhiskerCache</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="header-inner">
+      <h1 class="app-title">WhiskerCache</h1>
+      <p class="app-subtitle">Curated by Buns</p>
+    </div>
+    <div class="sync-indicator" id="syncIndicator" title="Sync status"></div>
+  </header>
+
+  <!-- ── MAIN CONTENT ───────────────────────────────────── -->
+  <main class="app-main" id="appMain">
+
+    <!-- HOME VIEW -->
+    <section class="view active" id="viewHome">
+
+      <div class="cards-grid">
+
+        <!-- Kevin Card -->
+        <div class="card card-kevin" id="cardKevin">
+          <div class="card-cat-icon">🐈‍⬛</div>
+          <div class="card-body">
+            <div class="card-label">Kevin</div>
+            <div class="card-count" id="kevinCount">—</div>
+            <div class="card-unit">whiskers</div>
+          </div>
+        </div>
+
+        <!-- Archie Card -->
+        <div class="card card-archie" id="cardArchie">
+          <div class="card-cat-icon">🐈</div>
+          <div class="card-body">
+            <div class="card-label">Archie</div>
+            <div class="card-count" id="archieCount">—</div>
+            <div class="card-unit">whiskers</div>
+          </div>
+        </div>
+
+        <!-- Total Card -->
+        <div class="card card-total" id="cardTotal">
+          <div class="card-cat-icon">🐾</div>
+          <div class="card-body">
+            <div class="card-label">Total Collected</div>
+            <div class="card-count" id="totalCount">—</div>
+            <div class="card-unit">whiskers ever</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Last Find -->
+      <div class="last-find" id="lastFind" style="display:none">
+        <span class="last-find-label">Latest find:</span>
+        <span class="last-find-text" id="lastFindText"></span>
+      </div>
+
+    </section>
+
+    <!-- HISTORY VIEW -->
+    <section class="view" id="viewHistory">
+      <div class="view-header">
+        <h2 class="view-title">The Collection</h2>
+      </div>
+      <div class="history-list" id="historyList">
+        <div class="empty-state">No whiskers logged yet. 🐱</div>
+      </div>
+    </section>
+
+    <!-- STATS VIEW -->
+    <section class="view" id="viewStats">
+      <div class="view-header">
+        <h2 class="view-title">Stats</h2>
+      </div>
+      <div class="stats-content" id="statsContent">
+        <!-- rendered by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── LOG WHISKER FAB ────────────────────────────────── -->
+  <button class="fab" id="fabLog" aria-label="Log a whisker">
+    <span class="fab-icon">＋</span>
+    <span class="fab-label">Log Whisker</span>
+  </button>
+
+  <!-- ── BOTTOM NAV ─────────────────────────────────────── -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="nav-btn active" data-view="viewHome" aria-label="Home">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-btn" data-view="viewHistory" aria-label="History">
+      <span class="nav-icon">📋</span>
+      <span class="nav-label">Collection</span>
+    </button>
+    <button class="nav-btn" data-view="viewStats" aria-label="Stats">
+      <span class="nav-icon">📊</span>
+      <span class="nav-label">Stats</span>
+    </button>
+  </nav>
+
+  <!-- ── LOG WHISKER MODAL ──────────────────────────────── -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" id="logModal" role="dialog" aria-modal="true" aria-label="Log a whisker">
+
+      <div class="modal-header">
+        <h3 class="modal-title">New Find 🐾</h3>
+        <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- Cat selector -->
+        <div class="form-group">
+          <label class="form-label">Whose whisker?</label>
+          <div class="cat-selector" id="catSelector">
+            <button class="cat-btn active" data-cat="Archie">
+              <span class="cat-btn-icon">🐈</span>
+              <span class="cat-btn-name">Archie</span>
+            </button>
+            <button class="cat-btn" data-cat="Kevin">
+              <span class="cat-btn-icon">🐈‍⬛</span>
+              <span class="cat-btn-name">Kevin</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Count stepper -->
+        <div class="form-group">
+          <label class="form-label">How many?</label>
+          <div class="count-stepper">
+            <button class="stepper-btn" id="countMinus" aria-label="Decrease">−</button>
+            <span class="stepper-value" id="countValue">1</span>
+            <button class="stepper-btn" id="countPlus" aria-label="Increase">+</button>
+          </div>
+        </div>
+
+        <!-- Note toggle -->
+        <div class="form-group">
+          <button class="note-toggle" id="noteToggle" type="button">
+            <span id="noteToggleLabel">+ add a note</span>
+          </button>
+          <div class="note-field" id="noteField" style="display:none">
+            <input
+              class="note-input"
+              id="noteInput"
+              type="text"
+              placeholder="where'd you find it? 🔍"
+              maxlength="120"
+            />
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-save" id="btnSave">Secure the Whisker</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── TOAST ──────────────────────────────────────────── -->
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <!-- ── DELETE CONFIRM MODAL ───────────────────────────── -->
+  <div class="modal-backdrop" id="deleteBackdrop" aria-hidden="true">
+    <div class="modal modal-sm" id="deleteModal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h3 class="modal-title">Remove entry?</h3>
+      </div>
+      <div class="modal-body">
+        <p class="delete-msg">This whisker will be released back into the wild.</p>
+      </div>
+      <div class="modal-footer modal-footer-row">
+        <button class="btn-cancel" id="btnDeleteCancel">Keep it</button>
+        <button class="btn-danger" id="btnDeleteConfirm">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FIREBASE ───────────────────────────────────────── -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <!-- ── APP ───────────────────────────────────────────── -->
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
