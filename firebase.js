@@ -25,14 +25,23 @@
 // ──────────────────────────────────────────────
 //  🔧 PASTE YOUR FIREBASE CONFIG HERE
 // ──────────────────────────────────────────────
-const FIREBASE_CONFIG = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID",
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDi17UOAhajqi6eD3hwUSwGZ6xeGJtwOhk",
+  authDomain: "whiskercache.firebaseapp.com",
+  projectId: "whiskercache",
+  storageBucket: "whiskercache.firebasestorage.app",
+  messagingSenderId: "1047237369855",
+  appId: "1:1047237369855:web:2a05c91e0d8f73e3dc11ca"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 // ──────────────────────────────────────────────
 
 // Firestore collection name
