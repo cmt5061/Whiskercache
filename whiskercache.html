@@ -211,6 +211,7 @@ button{font-family:var(--font-b);cursor:pointer}
 .cat-btn.sel-archie{border-color:var(--archie-accent);background:#fff8ec}
 .cat-btn.sel-kevin{border-color:var(--kevin-accent);background:#f0f4f8}
 [data-theme="dark"] .cat-btn.sel-archie{background:#2e2010}[data-theme="dark"] .cat-btn.sel-kevin{background:#141828}
+[data-theme="dark"] .cat-btn.sel-archie .cat-btn-name,[data-theme="dark"] .cat-btn.sel-kevin .cat-btn-name{color:#fff}
 .cat-btn-img{width:44px;height:44px;border-radius:50%;object-fit:cover}
 .cat-btn-emoji{font-size:2rem;line-height:44px;text-align:center;width:44px;height:44px;display:block}
 .cat-btn-name{font-size:.8rem;font-weight:700;color:var(--ink)}
@@ -384,13 +385,6 @@ button{font-family:var(--font-b);cursor:pointer}
       <span class="last-find-lbl">Latest find:</span>
       <span id="lastFindText"></span>
     </div>
-    <!-- Sync key row -->
-    <div class="sync-key-row" id="syncKeyRow">
-      <span class="sync-key-label">🔑 Sync key:</span>
-      <span class="sync-key-val" id="syncKeyDisplay"></span>
-      <button class="sync-key-btn" id="syncKeyCopy" title="Copy key">⎘</button>
-      <button class="sync-key-btn" id="syncKeyChange" title="Change key">✎</button>
-    </div>
   </section>
 
   <section class="view" id="viewHistory">
@@ -536,13 +530,13 @@ service cloud.firestore {
       <div>
         <span class="form-lbl">Whose whisker?</span>
         <div class="cat-sel" id="catSel">
-          <button class="cat-btn sel-archie" data-cat="Archie">
-            <span id="logArchieImg" class="cat-btn-emoji">🐈</span>
-            <span class="cat-btn-name">Archie</span>
-          </button>
           <button class="cat-btn" data-cat="Kevin">
             <span id="logKevinImg" class="cat-btn-emoji">🐈‍⬛</span>
             <span class="cat-btn-name">Kevin</span>
+          </button>
+          <button class="cat-btn sel-archie" data-cat="Archie">
+            <span id="logArchieImg" class="cat-btn-emoji">🐈</span>
+            <span class="cat-btn-name">Archie</span>
           </button>
         </div>
       </div>
@@ -554,12 +548,10 @@ service cloud.firestore {
           <button class="step-btn" id="stepPlus">+</button>
         </div>
       </div>
-      <div>
-        <button class="note-toggle" id="noteToggle">+ add a note</button>
-        <div id="noteWrap" style="display:none">
+              <div>
+          <span class="form-lbl">Note (optional)</span>
           <input class="note-input" id="noteInput" type="text" placeholder="where'd you find it? 🔍" maxlength="120"/>
         </div>
-      </div>
     </div>
     <div class="modal-foot"><button class="btn-save" id="btnSave">Secure the Whisker</button></div>
   </div>
@@ -731,7 +723,7 @@ function initSyncKey(){
   renderSyncKey();
 }
 function renderSyncKey(){
-  var el=document.getElementById("syncKeyDisplay");
+  var el=document.getElementById("settingsSyncKey");
   if(el)el.textContent=syncKey;
 }
 function changeSyncKey(){
@@ -951,19 +943,18 @@ function closeCatCard(){document.getElementById("catCardBackdrop").classList.rem
 
 /* LOG MODAL */
 function openLog(){
-  stepCount=1;noteShown=false;
+  stepCount=1;
   document.getElementById("stepVal").textContent="1";
   document.getElementById("noteInput").value="";
-  document.getElementById("noteWrap").style.display="none";
-  document.getElementById("noteToggle").textContent="+ add a note";
-  document.querySelectorAll(".cat-btn").forEach(function(b){b.className="cat-btn"+(b.getAttribute("data-cat")==="Archie"?" sel-archie":"");});
+  document.querySelectorAll(".cat-btn").forEach(function(b){b.className="cat-btn"+(b.getAttribute("data-cat")==="Kevin"?" sel-kevin":"");});
   updateLogModalPhotos();
   document.getElementById("logBackdrop").classList.add("open");
 }
 function closeLog(){document.getElementById("logBackdrop").classList.remove("open");}
 function saveLog(){
   var cb=document.querySelector(".cat-btn.sel-archie,.cat-btn.sel-kevin");
-  addEntry(cb?cb.getAttribute("data-cat"):"Archie",stepCount,noteShown?document.getElementById("noteInput").value.trim():null);
+  var note=document.getElementById("noteInput").value.trim();
+  addEntry(cb?cb.getAttribute("data-cat"):"Kevin",stepCount,note||null);
   closeLog();showToast(CONFIRMS[Math.floor(Math.random()*CONFIRMS.length)]);
 }
 function openDel(id){deleteId=id;document.getElementById("delBackdrop").classList.add("open");}
@@ -1014,13 +1005,8 @@ document.addEventListener("DOMContentLoaded",function(){
     applyTheme(next);
   });
 
-  // Sync key
+  // Sync key (settings page only)
   initSyncKey();
-  document.getElementById("syncKeyCopy").addEventListener("click",function(){
-    if(navigator.clipboard){navigator.clipboard.writeText(syncKey).then(function(){showToast("Key copied! 🔑");});}
-    else{showToast(syncKey);}
-  });
-  document.getElementById("syncKeyChange").addEventListener("click",changeSyncKey);
 
   // Photos
   loadPhotos();
@@ -1072,12 +1058,6 @@ document.addEventListener("DOMContentLoaded",function(){
   });
   document.getElementById("stepMinus").addEventListener("click",function(){if(stepCount>1){stepCount--;document.getElementById("stepVal").textContent=stepCount;}});
   document.getElementById("stepPlus").addEventListener("click",function(){if(stepCount<20){stepCount++;document.getElementById("stepVal").textContent=stepCount;}});
-  document.getElementById("noteToggle").addEventListener("click",function(){
-    noteShown=!noteShown;
-    document.getElementById("noteWrap").style.display=noteShown?"block":"none";
-    document.getElementById("noteToggle").textContent=noteShown?"− hide note":"+ add a note";
-    if(noteShown)document.getElementById("noteInput").focus();
-  });
   document.getElementById("btnSave").addEventListener("click",saveLog);
   document.getElementById("noteInput").addEventListener("keydown",function(e){if(e.key==="Enter")saveLog();});
 
