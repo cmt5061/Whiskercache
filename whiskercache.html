@@ -287,6 +287,35 @@ button{font-family:var(--font-b);cursor:pointer}
 .c-piece{position:absolute;width:8px;height:8px;border-radius:2px;animation:cfall linear forwards}
 @keyframes cfall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 
+/* SETTINGS / SETUP VIEW */
+.settings-wrap{display:flex;flex-direction:column;gap:14px}
+.setup-card{background:var(--bg-card);border:1.5px solid var(--border-soft);border-radius:var(--r-lg);overflow:hidden}
+.setup-card-top{padding:14px 16px 0;display:flex;align-items:center;gap:8px}
+.setup-card-icon{font-size:1.3rem;flex-shrink:0}
+.setup-card-title{font-family:var(--font-d);font-size:1rem;font-weight:700;color:var(--ink)}
+.setup-card-body{padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.setup-card-body p{font-size:.84rem;color:var(--ink-soft);line-height:1.55}
+.setup-step{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--ink-soft);line-height:1.5}
+.setup-step-num{min-width:22px;height:22px;border-radius:50%;background:var(--archie-accent);color:#fff;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.setup-step b{color:var(--ink);font-weight:700}
+.setup-note{font-size:.78rem;color:var(--ink-faint);background:var(--bg-soft);border-radius:var(--r-sm);padding:8px 10px;border-left:3px solid var(--archie-accent);line-height:1.5}
+.setup-key-display{font-family:monospace;font-size:1.8rem;font-weight:700;letter-spacing:.3em;color:var(--ink);text-align:center;padding:14px;background:var(--bg-soft);border-radius:var(--r-md);border:1.5px dashed var(--border)}
+.setup-key-actions{display:flex;gap:8px}
+.setup-btn{flex:1;padding:11px;border-radius:var(--r-md);font-size:.85rem;font-weight:700;border:1.5px solid var(--border);cursor:pointer;font-family:var(--font-b);transition:background .15s}
+.setup-btn-secondary{background:var(--bg-soft);color:var(--ink-soft)}
+.setup-btn-secondary:hover{background:var(--border-soft)}
+.setup-btn-primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.setup-btn-primary:active{opacity:.88}
+.setup-code-wrap{position:relative;border-radius:var(--r-sm);overflow:hidden;border:1.5px solid var(--border)}
+.setup-code-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);background:var(--bg-soft);padding:6px 10px;border-bottom:1px solid var(--border-soft)}
+.setup-code{font-family:monospace;font-size:.72rem;line-height:1.65;color:var(--ink-soft);background:var(--bg);padding:12px 10px;overflow-x:auto;white-space:pre;margin:0;display:block}
+[data-theme="dark"] .setup-code{background:#0e0a06;color:#c8b898}
+.setup-copy-code-btn{display:block;margin-top:0;background:var(--bg-soft);border:none;border-top:1px solid var(--border-soft);padding:8px 10px;font-size:.75rem;font-weight:700;color:var(--ink-soft);cursor:pointer;width:100%;text-align:center;transition:background .15s}
+.setup-copy-code-btn:hover{background:var(--border-soft)}
+.setup-faq{background:var(--bg-soft);border-radius:var(--r-sm);padding:10px 12px}
+.setup-faq-q{font-size:.8rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+.setup-faq-a{font-size:.76rem;color:var(--ink-soft);line-height:1.5}
+
 /* RESPONSIVE */
 @media(min-width:480px){
   .view{padding:24px 28px;max-width:520px;margin:0 auto}
@@ -371,12 +400,107 @@ button{font-family:var(--font-b);cursor:pointer}
     </div>
   </section>
 
-  <section class="view" id="viewStats">
-    <div class="view-title-row">
-      <div class="view-title">Stats</div>
-      <button class="export-btn" id="exportBtn">⬇ Export CSV</button>
+  <section class="view" id="viewSettings">
+    <div class="view-title">Setup & Sync</div>
+    <div class="settings-wrap" id="settingsWrap">
+
+      <!-- SYNC KEY SECTION -->
+      <div class="setup-card">
+        <div class="setup-card-top"><div class="setup-card-icon">🔑</div><div class="setup-card-title">Your Sync Key</div></div>
+        <div class="setup-card-body">
+          <p>Your sync key links this device to a shared whisker collection. Any device using the same key sees the same data in real time.</p>
+          <div class="setup-key-display" id="settingsSyncKey"></div>
+          <div class="setup-key-actions">
+            <button class="setup-btn setup-btn-secondary" id="settingsCopyKey">⎘ Copy Key</button>
+            <button class="setup-btn setup-btn-primary" id="settingsChangeKey">✎ Change Key</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOW TO SYNC -->
+      <div class="setup-card">
+        <div class="setup-card-top"><div class="setup-card-icon">📱</div><div class="setup-card-title">Syncing Between Devices</div></div>
+        <div class="setup-card-body">
+          <div class="setup-step"><span class="setup-step-num">1</span><span>Open WhiskerCache on the <b>first device</b> — a sync key is automatically created.</span></div>
+          <div class="setup-step"><span class="setup-step-num">2</span><span>Tap <b>⎘ Copy Key</b> above, or note the 6-character code.</span></div>
+          <div class="setup-step"><span class="setup-step-num">3</span><span>Open WhiskerCache on the <b>second device</b>, go to Setup, and tap <b>✎ Change Key</b>.</span></div>
+          <div class="setup-step"><span class="setup-step-num">4</span><span>Enter the key from step 2. Both devices now share the same live collection.</span></div>
+          <div class="setup-note">⚠️ Changing your key resets local data on this device and pulls everything fresh from the cloud under the new key.</div>
+        </div>
+      </div>
+
+      <!-- FIRESTORE SETUP -->
+      <div class="setup-card">
+        <div class="setup-card-top"><div class="setup-card-icon">🔥</div><div class="setup-card-title">Firebase / Firestore Rules</div></div>
+        <div class="setup-card-body">
+          <p>The Firebase config is already embedded. The one thing you <b>must</b> do is update the Firestore Security Rules — without this, sync will fail with a red dot.</p>
+          <div class="setup-step"><span class="setup-step-num">1</span><span>Go to <b>console.firebase.google.com</b> → open the <b>whiskercache</b> project.</span></div>
+          <div class="setup-step"><span class="setup-step-num">2</span><span>In the left sidebar click <b>Firestore Database</b>, then the <b>Rules</b> tab.</span></div>
+          <div class="setup-step"><span class="setup-step-num">3</span><span>Replace the existing rules with the code below.</span></div>
+          <div class="setup-step"><span class="setup-step-num">4</span><span>Click <b>Publish</b>. Sync dot should turn green within a few seconds.</span></div>
+          <div class="setup-code-wrap">
+            <div class="setup-code-label">firestore.rules</div>
+            <code class="setup-code" id="rulesCode">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // WhiskerCache: allow any sync-key collection
+    // Collections are named whiskers_{KEY}
+    match /whiskers_{key}/{docId} {
+      allow read, write: if true;
+    }
+
+    // Deny everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}</code>
+            <button class="setup-copy-code-btn" id="copyRulesBtn">⎘ Copy rules to clipboard</button>
+          </div>
+          <div class="setup-note">ℹ️ These rules allow anyone who knows a sync key to access that key's collection. Since keys are random 6-char codes that you share only with Buns, this is effectively private — like a shared password.</div>
+        </div>
+      </div>
+
+      <!-- DATA & PRIVACY -->
+      <div class="setup-card">
+        <div class="setup-card-top"><div class="setup-card-icon">🔒</div><div class="setup-card-title">Data & Privacy</div></div>
+        <div class="setup-card-body">
+          <div class="setup-step"><span class="setup-step-num">✓</span><span>All whisker data lives in <b>your own Firebase project</b> — nobody else has access.</span></div>
+          <div class="setup-step"><span class="setup-step-num">✓</span><span>Photos are stored only in <b>this device's local storage</b> — they never leave your phone.</span></div>
+          <div class="setup-step"><span class="setup-step-num">✓</span><span>The app works fully <b>offline</b> — data is cached locally and syncs when you reconnect.</span></div>
+          <div class="setup-step"><span class="setup-step-num">✓</span><span>Entries are <b>immutable</b> — you can add or delete, but not edit. The record stays honest.</span></div>
+        </div>
+      </div>
+
+      <!-- TROUBLESHOOTING -->
+      <div class="setup-card">
+        <div class="setup-card-top"><div class="setup-card-icon">🛠</div><div class="setup-card-title">Troubleshooting</div></div>
+        <div class="setup-card-body">
+          <div class="setup-faq">
+            <div class="setup-faq-q">🟡 Sync dot is yellow / spinning</div>
+            <div class="setup-faq-a">App is connecting to Firebase. Usually resolves in a few seconds. Check your internet if it stays yellow.</div>
+          </div>
+          <div class="setup-faq">
+            <div class="setup-faq-q">🔴 Sync dot is red</div>
+            <div class="setup-faq-a">Firebase rejected the connection. Most likely cause: Firestore Rules haven't been updated yet. Follow the Firebase setup steps above and click Publish.</div>
+          </div>
+          <div class="setup-faq">
+            <div class="setup-faq-q">Second device shows no data after entering key</div>
+            <div class="setup-faq-a">Confirm the first device has a green dot — data must be in Firestore first. Double-check the key is exactly 6 characters and matches.</div>
+          </div>
+          <div class="setup-faq">
+            <div class="setup-faq-q">I accidentally changed my key</div>
+            <div class="setup-faq-a">Tap ✎ Change Key and re-enter the original. Your Firestore data is never deleted when you switch keys.</div>
+          </div>
+          <div class="setup-faq">
+            <div class="setup-faq-q">Can I use any string as a key?</div>
+            <div class="setup-faq-a">Yes — any 3–6 alphanumeric characters. Letters are uppercased automatically. Short keys are easier to type but less private.</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="stats-wrap" id="statsWrap"></div>
   </section>
 
 </main>
@@ -390,6 +514,7 @@ button{font-family:var(--font-b);cursor:pointer}
   <button class="nav-btn active" data-view="viewHome"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></button>
   <button class="nav-btn" data-view="viewHistory"><span class="nav-icon">📋</span><span class="nav-label">Collection</span></button>
   <button class="nav-btn" data-view="viewStats"><span class="nav-icon">📊</span><span class="nav-label">Stats</span></button>
+  <button class="nav-btn" data-view="viewSettings"><span class="nav-icon">⚙️</span><span class="nav-label">Setup</span></button>
 </nav>
 
 <!-- LOG MODAL -->
@@ -896,8 +1021,16 @@ document.addEventListener("DOMContentLoaded",function(){
   initFirebase();maybeSeed();
   entries=merge(lsGet(),[]);renderAll();
 
-  // Nav
-  document.getElementById("bottomNav").addEventListener("click",function(e){var b=e.target.closest(".nav-btn");if(b)showView(b.getAttribute("data-view"));});
+  // Nav — update settings key display on tab switch
+  document.getElementById("bottomNav").addEventListener("click",function(e){
+    var b=e.target.closest(".nav-btn");
+    if(!b)return;
+    showView(b.getAttribute("data-view"));
+    if(b.getAttribute("data-view")==="viewSettings"){
+      var el=document.getElementById("settingsSyncKey");
+      if(el)el.textContent=syncKey;
+    }
+  });
 
   // FAB
   document.getElementById("fabBtn").addEventListener("click",openLog);
@@ -952,6 +1085,17 @@ document.addEventListener("DOMContentLoaded",function(){
 
   // Export
   document.getElementById("exportBtn").addEventListener("click",exportCSV);
+
+  // Settings page
+  document.getElementById("settingsCopyKey").addEventListener("click",function(){
+    if(navigator.clipboard){navigator.clipboard.writeText(syncKey).then(function(){showToast("Key copied! 🔑");});}
+    else{showToast("Your key: "+syncKey);}
+  });
+  document.getElementById("settingsChangeKey").addEventListener("click",changeSyncKey);
+  document.getElementById("copyRulesBtn").addEventListener("click",function(){
+    var rules=document.getElementById("rulesCode").textContent;
+    if(navigator.clipboard){navigator.clipboard.writeText(rules).then(function(){showToast("Rules copied! 🔥");});}
+  });
 
   // ESC
   document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeLog();closeDel();closeCatCard();}});
