@@ -970,6 +970,7 @@ function showToast(msg){
 function showView(id){
   document.querySelectorAll(".view").forEach(function(v){v.classList.toggle("active",v.id===id);});
   document.querySelectorAll(".nav-btn").forEach(function(b){b.classList.toggle("active",b.getAttribute("data-view")===id);});
+  document.getElementById("fabBtn").style.display=id==="viewHome"?"flex":"none";
 }
 
 /* THEME */
