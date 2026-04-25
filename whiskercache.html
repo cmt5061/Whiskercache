@@ -248,6 +248,7 @@ button{font-family:var(--font-b);cursor:pointer}
 .mtg-namebar.kevin-nb{background:linear-gradient(90deg,#1a2535,#0f1520)}
 .mtg-namebar.archie-nb{background:linear-gradient(90deg,#2a1500,#1a0c00)}
 .mtg-name{font-family:var(--font-d);font-size:1rem;font-weight:700;color:#f0e0c0;letter-spacing:.02em;line-height:1}
+.mtg-nickname{font-size:.62rem;color:rgba(240,224,192,.55);font-style:italic;letter-spacing:.04em;margin-top:1px}
 .mtg-cost{display:flex;gap:4px;align-items:center}
 .mtg-pip{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;border:1.5px solid rgba(255,255,255,.3);flex-shrink:0}
 .pip-black{background:radial-gradient(circle at 35% 35%,#4a4a6a,#0a0a18);color:#9ab8d0}
@@ -871,17 +872,18 @@ function handlePhotoUpload(cat,file){
 /* MTG CAT CARDS */
 var CAT_DATA={
   Kevin:{
-    type:"Legendary Creature — Cat Gremlin",
+    type:"Legendary Creature — Cat Gremlin Baker",
     rarity:"Mythic Rare · WhiskerCache",
     pt:"1 / 6",
     cost:["pip-black","pip-black"],
     abilities:[
       {name:"Lap Lock",text:"When Kevin enters the battlefield seated on a human, he cannot be removed by any spell or ability."},
       {name:"Archie Aggro",text:"At the beginning of your upkeep, Kevin annoys target adjacent cat. That cat gets -1/-0 until end of turn."},
-      {name:"Scaredy Sprint",text:"Whenever a sound with power 1 or greater is made, Kevin gains haste and flees. He deals 0 damage but knocks everything over."},
+      {name:"Bread Obsession",text:"Kevin may eat any bread left unattended. If no bread is present, he will sit near the bread area and stare until bread appears."},
       {name:"Sweet Disarm",text:"T: Tap Kevin. All creatures that blocked Kevin this turn become enchanted with 'Must give belly rubs.'"}
     ],
-    flavor:"\"He means well,\" they said. He did not mean well. He meant chaos. Sweet, purring chaos.",
+    flavor:"\"He means well,\" they said. He did not mean well. He meant chaos. Sweet, carb-loving chaos.",
+    nickname:"a.k.a. Kevy Kake",
     outerClass:"kevin-outer",cardClass:"kevin-card",nbClass:"kevin-nb",tlClass:"kevin-tl",btmClass:"kevin-btm"
   },
   Archie:{
@@ -896,6 +898,7 @@ var CAT_DATA={
       {name:"Ancient Wisdom",text:"Archie has seen 13 years of things. He will share none of them. He simply knows."}
     ],
     flavor:"\"He has suffered greatly. He has endured Kevin. And still, somehow, he purrs.\"",
+    nickname:"a.k.a. Archie Boy",
     outerClass:"archie-outer",cardClass:"archie-card",nbClass:"archie-nb",tlClass:"archie-tl",btmClass:"archie-btm"
   }
 };
@@ -915,7 +918,10 @@ function openCatCard(cat){
     '<div class="mtg-outer '+d.outerClass+'">'+
       '<div class="mtg-card '+d.cardClass+'">'+
         '<div class="mtg-namebar '+d.nbClass+'">'+
-          '<span class="mtg-name">'+cat+'</span>'+
+          '<div>'+
+            '<span class="mtg-name">'+cat+'</span>'+
+            '<div class="mtg-nickname">'+d.nickname+'</div>'+
+          '</div>'+
           '<div class="mtg-cost">'+pips+'</div>'+
         '</div>'+
         artHtml+
